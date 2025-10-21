@@ -1,0 +1,8 @@
+
+{% autoescape off %}
+    Hi {{ user.username }},
+    Please click the link below to verify your registration:
+    http://{{ domain }}{% url 'activate' uid64=uid token=token %}
+    
+    If you think it's not you, please ignore this email.
+{% endautoescape %}
