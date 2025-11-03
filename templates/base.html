@@ -28,6 +28,9 @@
 <!-- custom javascript -->
 <script src="{% static 'js/script.js' %}" type="text/javascript"></script>
 
+<!--Paypal Script-->
+<script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
+
 <script type="text/javascript">
 /// some script
 
@@ -47,5 +50,6 @@ $(document).ready(function() {
     {% block content %}
 
     {% endblock %}
-
+</body>
     {% include 'includes/footer.html' %}
+</html>
