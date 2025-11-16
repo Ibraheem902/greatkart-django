@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from carts.views import _cart_id
 from category.models import Category
 from orders.models import OrderProduct
-from store.models import Product,ReviewRating
+from store.models import Product, ProductGallery,ReviewRating
 from carts.models import CartItem
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 from django.db.models import Q
@@ -50,11 +50,13 @@ def product_detail(request,category_slug, product_slug):
         order_product = None
     #Get the reviews
     reviews = ReviewRating.objects.filter(product_id=single_product.id,status=True)
+    product_gallary = ProductGallery.objects.filter(product_id=single_product.id)
     context={
         'single_product': single_product,
         'in_cart' : in_cart,
         'order_product': order_product,
         'reviews': reviews,
+        'product_gallary':product_gallary,
     }
     return render(request,'store/product_detail.html', context)
 
@@ -74,7 +76,6 @@ def search(request):
 def submit_review(request,product_id):
     url = request.META.get('HTTP_REFERER')
     form=ReviewForm(request.POST)
-    print(form.errors)
     if request.method == 'POST':
         try:
             reviews = ReviewRating.objects.get(user__id=request.user.id,product__id=product_id)
